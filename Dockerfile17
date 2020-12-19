@@ -1,0 +1,18 @@
+FROM centos:7
+# Выбираем рабочую папку
+WORKDIR /root
+COPY . /root
+RUN yum install zip unzip -y
+
+RUN yum install centos-release-scl -y
+RUN yum install devtoolset-7-gcc-c++ -y
+#RUN yum install devtoolset-7-toolchain -y
+RUN scl enable devtoolset-7 bash
+RUN scl enable devtoolset-7 'g++ -Irapidjson main.cpp load_data.cpp -std=gnu++17 -lpthread -lstdc++fs  -Ofast'
+
+# Открываем 80-й порт наружу
+EXPOSE 80
+
+# Запускаем наш сервер
+CMD ["./a.out"]
+

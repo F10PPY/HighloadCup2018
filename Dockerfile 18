@@ -1,0 +1,27 @@
+FROM ubuntu:latest
+
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install sudo
+
+RUN sudo apt-get install -y apt-utils
+RUN sudo apt-get install -y build-essential 
+RUN sudo apt-get install -y aptitude 
+RUN sudo apt-get install -y libstdc++6 
+RUN apt-get install -y g++
+RUN apt-get install unzip
+
+
+
+
+
+WORKDIR /root
+COPY . /root
+#RUN g++-8 -Irapidjson get_filter.cpp load_data.cpp main.cpp util.cpp req_handler.cpp resp_templates.cpp -std=c++2a -std=gnu++2a -lpthread -lstdc++fs  -Ofast
+RUN g++-7 -Irapidjson get_filter.cpp load_data.cpp main.cpp util.cpp req_handler.cpp resp_templates.cpp -std=c++2a -std=gnu++2a -lpthread -lstdc++fs  -Ofast
+# Открываем 80-й порт наружу
+EXPOSE 80
+
+# Запускаем наш сервер
+CMD ["./a.out"]
+

@@ -1,0 +1,32 @@
+#include "resp_templates.h"
+
+char r404[]="HTTP/1.1 404 N\r\nConnection: keep-alive\r\nContent-Type: t\r\nContent-length: 0\r\n\r\n";
+char r400[]="HTTP/1.1 400 B\r\nConnection: keep-alive\r\nContent-Type: t\r\nContent-length: 0\r\n\r\n";
+char r200_empty_acc[]="HTTP/1.1 200 O\r\nConnection: keep-alive\r\nContent-Type: text/plain; charset=utf-8\r\nContent-length: 15\r\n\r\n{\"accounts\":[]}";
+const uint8_t r404_len=static_cast<uint8_t>(strlen(r404));
+const uint8_t r400_len=static_cast<uint8_t>(strlen(r400));
+const uint8_t r200_empty_acc_len=static_cast<uint8_t>(strlen(r200_empty_acc));
+thread_local char *r200;
+uint32_t r200_headers_len;
+thread_local char* r200_contlen_p;
+thread_local char* r200_headers_end_p;
+StrP256Max k_accounts("{\"accounts\":[ ");
+StrP256Max k_groups("{\"groups\":[ ");
+StrP256Max k_email("{\"email\":");
+StrP256Max k_sex_m("\"sex\":\"m\",");
+StrP256Max k_sex_f("\"sex\":\"f\",");
+StrP256Max k_sex_arr[2]{k_sex_m,k_sex_f};
+StrP256Max k_status_single("\"status\":\"свободны\",");
+StrP256Max k_status_engaged("\"status\":\"заняты\",");
+StrP256Max k_status_complicated("\"status\":\"всё сложно\",");
+StrP256Max k_status_arr[3]{k_status_single,k_status_engaged,k_status_complicated};
+StrP256Max k_country("\"country\":");
+StrP256Max k_city("\"city\":");
+StrP256Max k_id("\"id\":");
+StrP256Max k_birth("\"birth\":");
+StrP256Max k_phone("\"phone\":");
+StrP256Max k_fname("\"fname\":");
+StrP256Max k_sname("\"sname\":");
+StrP256Max k_count("{\"count\":");
+StrP256Max k_premium("\"premium\":{\"finish\":          ,\"start\":          },");
+//enum status{SINGLE,ENGAGED,COMPLICATED};
